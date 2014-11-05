@@ -6,5 +6,6 @@
  * Time: 16:30
  */
 function test(){
-    echo "test";
+    echo "test1";
 }
+
