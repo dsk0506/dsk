@@ -59,9 +59,26 @@
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |
 
+# 9. 语法高亮
+
 ```php
-
-
 echo "hello";
+
+```
+```html
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    $.post("test.php", function(data) {
+        $(".result").html(data);
+    });
+</script>
+</body>
+</html>
 
 ```
