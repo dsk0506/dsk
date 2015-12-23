@@ -159,3 +159,6 @@ html
 </html>
 
 ```
+# 10. 截图
+不错不错
+![ScreenShot](/pic/1.jpg)
