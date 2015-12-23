@@ -160,5 +160,8 @@ html
 
 ```
 # 10. 截图
+```
+![ScreenShot](https://github.com/dsk0506/dsk/blob/master/markdown/pic/3.jpg)
+```
 不错不错
-![ScreenShot](/pic/3.jpg)
+![ScreenShot](https://github.com/dsk0506/dsk/blob/master/markdown/pic/3.jpg)
