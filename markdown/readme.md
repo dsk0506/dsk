@@ -71,8 +71,8 @@
 | col 3 is      | right-aligned | $1600 |
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |
-效果
 ```
+效果
 
 | Tables        | Are           | Cool  |
 | ------------- |:-------------:| -----:|
@@ -81,6 +81,14 @@
 | zebra stripes | are neat      |    $1 |
 
 # 9. 语法高亮
+代码
+```
+```php
+echo "hello";
+
+```
+```
+效果
 php
 ```php
 echo "hello";
