@@ -24,3 +24,8 @@
         * 小小节 1
         * 小小节 2
     * 第二小节
+
+# 4. 链接，图片
+
+我：我也没读过，但是， [***Jane Eyre***](http://book.douban.com/subject/1141406/) is not just ***Jane Eyre***
+![](http://img3.douban.com/mpic/s1108264.jpg)
