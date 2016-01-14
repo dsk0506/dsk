@@ -1,2 +1,9 @@
 .idea
 *.diff
+.env
+.gitignore
+.idea/*
+/node_modules
+Homestead.yaml
+Homestead.json
+
