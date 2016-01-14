@@ -310,54 +310,7 @@ class IndexController extends Controller
 
             }
         });
-        $arr  = $arr1;
-        unset($arr1);
-        //切割数据 检查是否出现循环
-        foreach($arr as $v){
-            $arr1[$v['jsj']][] = $v;
-        }
-
-
-        //var_dump($arr1);
-        $arr2 = array();
-        foreach($arr1 as $k => $v){
-            if(count($v)>=3){
-                $arr2[$k] = $v;
-            }
-        }
-        //检查时候出现循环
-        function check($v){
-            $key = array_column($v,'name');
-            $win = array();
-
-            foreach($v as $winv){
-                $win = array_merge($win,$winv['win']);
-            }
-            $times = array_count_values($win);
-            $status =0;
-            foreach($key as $keyv){
-                if((!empty($times[$keyv]))&&($times[$keyv]>1)){
-                    $status =1;
-                }
-            }
-            if(!$status){
-                //出现循环 随机排序
-                shuffle($v);
-            }
-            return $v;
-        }
-
-        foreach($arr2 as $k=> $v){
-
-            $arr2[$k]=check($v);
-
-        }
-        $arr3 = $arr2+$arr1;
-        //重新组装  产生排名
-        $arr4 = array();
-        foreach($arr3 as $v){
-            $arr4 = array_merge($arr4,$v);
-        }
+        $arr4 = array_values($arr1);
         return view('active.rank',compact('arr4'));
     }
 }
