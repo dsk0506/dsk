@@ -42,11 +42,8 @@
                             <label class="col-md-4 control-label"></label>
 
                             <div class="col-md-6">
-                                <input name="active_type[]" value="1" type="checkbox"> 男单
-                                <input name="active_type[]" value="2" type="checkbox"> 女单
-                                <input name="active_type[]" value="3" type="checkbox"> 男双
-                                <input name="active_type[]" value="4" type="checkbox"> 女双
-                                <input name="active_type[]" value="5" type="checkbox"> 混双
+                                <input name="active_type[]" value="1" type="checkbox"> 单打
+                                <input name="active_type[]" value="2" type="checkbox"> 双打
 
                                 @if ($errors->has('active_type'))
                                     <span class="help-block">

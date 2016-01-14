@@ -30,19 +30,10 @@
                                     <?php
                                         switch($type){
                                             case 1:
-                                                echo "<input type='checkbox' name='active_type[]' value='1'>男单&nbsp&nbsp";
+                                                echo "<input type='checkbox' name='active_type[]' value='1'>单打&nbsp&nbsp";
                                                 break;
                                             case 2:
-                                                echo "<input type='checkbox' name='active_type[]' value='2'>女单&nbsp&nbsp";
-                                                break;
-                                            case 3:
-                                                echo "<input type='checkbox' name='active_type[]' value='3'>男双&nbsp&nbsp";
-                                                break;
-                                            case 4:
-                                                echo "<input type='checkbox' name='active_type[]' value='4'>女双&nbsp&nbsp";
-                                                break;
-                                            case 5:
-                                                echo "<input type='checkbox' name='active_type[]' value='5'>混双&nbsp&nbsp";
+                                                echo "<input type='checkbox' name='active_type[]' value='2'>双打&nbsp&nbsp";
                                                 break;
                                         }
                                     ?>
