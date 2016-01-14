@@ -30,7 +30,7 @@ class ActiveEventListener
         $config = $event->config;
         switch ($config['active_type'])
         {
-            case 5:
+            case 2:
                 //根据配置获取参赛用户
                 $users = DB::select("SELECT * FROM active_user LEFT JOIN `user` ON `user`.id = active_user.uid WHERE active_user.active_id = :active_id",array('active_id'=>$config['active_id']));
                 $signCount = count($users);
@@ -74,11 +74,9 @@ class ActiveEventListener
                                 }
                                 $arr = array_shift($match);
                                 $uid = array_merge($arr[0]['groupUid'],$arr[1]['groupUid']);
-                                if($key>0){
-                                    $uidArr = array_merge($result[$key]['uid'],$result[$key-1]['uid']);
-                                }else{
-                                    $uidArr = $result[$key]['uid'];
-                                }
+
+                                $uidArr = $result[$key]['uid'];
+
                                 if(array_intersect($uid,$uidArr)){
                                     array_push($match,$arr);
                                     if($j>count($match)){
@@ -86,6 +84,7 @@ class ActiveEventListener
                                     }
                                     continue;
                                 }
+
                                 $result[$key][$i] = $arr;
                                 $result[$key]['uid'] = array_merge($result[$key]['uid'],$uid);
                                 break;
