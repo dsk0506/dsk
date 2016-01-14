@@ -510,7 +510,7 @@ class Request extends SymfonyRequest implements Arrayable, ArrayAccess
             return $this->$source->all();
         }
 
-        return $this->$source->get($key, $default, true);
+        return $this->$source->get($key, $default);
     }
 
     /**
@@ -810,6 +810,8 @@ class Request extends SymfonyRequest implements Arrayable, ArrayAccess
      * Get a unique fingerprint for the request / route / IP address.
      *
      * @return string
+     *
+     * @throws \RuntimeException
      */
     public function fingerprint()
     {

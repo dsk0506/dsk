@@ -40,6 +40,13 @@ class Translator extends NamespacedItemResolver implements TranslatorInterface
     protected $loaded = [];
 
     /**
+     * The message selector.
+     * 
+     * @var \Symfony\Component\Translation\MessageSelector
+     */
+    protected $selector;
+
+    /**
      * Create a new translator instance.
      *
      * @param  \Illuminate\Translation\LoaderInterface  $loader
@@ -84,7 +91,7 @@ class Translator extends NamespacedItemResolver implements TranslatorInterface
      * @param  array   $replace
      * @param  string|null  $locale
      * @param  bool  $fallback
-     * @return string
+     * @return string|array|null
      */
     public function get($key, array $replace = [], $locale = null, $fallback = true)
     {
@@ -198,7 +205,7 @@ class Translator extends NamespacedItemResolver implements TranslatorInterface
      * @param  array   $parameters
      * @param  string  $domain
      * @param  string  $locale
-     * @return string
+     * @return string|array|null
      */
     public function trans($id, array $parameters = [], $domain = 'messages', $locale = null)
     {

@@ -173,7 +173,9 @@ class BelongsToMany extends Relation
 
         $select = $this->getSelectColumns($columns);
 
-        $models = $this->query->addSelect($select)->getModels();
+        $builder = $this->query->applyScopes();
+
+        $models = $builder->addSelect($select)->getModels();
 
         $this->hydratePivotRelation($models);
 
@@ -181,7 +183,7 @@ class BelongsToMany extends Relation
         // have been specified as needing to be eager loaded. This will solve the
         // n + 1 query problem for the developer and also increase performance.
         if (count($models) > 0) {
-            $models = $this->query->eagerLoadRelations($models);
+            $models = $builder->eagerLoadRelations($models);
         }
 
         return $this->related->newCollection($models);
@@ -299,33 +301,35 @@ class BelongsToMany extends Relation
     }
 
     /**
-     * Add the constraints for a relationship count query.
+     * Add the constraints for a relationship query.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  \Illuminate\Database\Eloquent\Builder  $parent
+     * @param  array|mixed  $columns
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function getRelationCountQuery(Builder $query, Builder $parent)
+    public function getRelationQuery(Builder $query, Builder $parent, $columns = ['*'])
     {
         if ($parent->getQuery()->from == $query->getQuery()->from) {
-            return $this->getRelationCountQueryForSelfJoin($query, $parent);
+            return $this->getRelationQueryForSelfJoin($query, $parent, $columns);
         }
 
         $this->setJoin($query);
 
-        return parent::getRelationCountQuery($query, $parent);
+        return parent::getRelationQuery($query, $parent, $columns);
     }
 
     /**
-     * Add the constraints for a relationship count query on the same table.
+     * Add the constraints for a relationship query on the same table.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  \Illuminate\Database\Eloquent\Builder  $parent
+     * @param  array|mixed  $columns
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function getRelationCountQueryForSelfJoin(Builder $query, Builder $parent)
+    public function getRelationQueryForSelfJoin(Builder $query, Builder $parent, $columns = ['*'])
     {
-        $query->select(new Expression('count(*)'));
+        $query->select($columns);
 
         $query->from($this->table.' as '.$hash = $this->getRelationCountHash());
 

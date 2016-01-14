@@ -79,19 +79,20 @@ class HasManyThrough extends Relation
     }
 
     /**
-     * Add the constraints for a relationship count query.
+     * Add the constraints for a relationship query.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  \Illuminate\Database\Eloquent\Builder  $parent
+     * @param  array|mixed  $columns
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function getRelationCountQuery(Builder $query, Builder $parent)
+    public function getRelationQuery(Builder $query, Builder $parent, $columns = ['*'])
     {
         $parentTable = $this->parent->getTable();
 
         $this->setJoin($query);
 
-        $query->select(new Expression('count(*)'));
+        $query->select($columns);
 
         $key = $this->wrap($parentTable.'.'.$this->firstKey);
 
@@ -321,13 +322,15 @@ class HasManyThrough extends Relation
 
         $select = $this->getSelectColumns($columns);
 
-        $models = $this->query->addSelect($select)->getModels();
+        $builder = $this->query->applyScopes();
+
+        $models = $builder->addSelect($select)->getModels();
 
         // If we actually found models we will also eager load any relationships that
         // have been specified as needing to be eager loaded. This will solve the
         // n + 1 query problem for the developer and also increase performance.
         if (count($models) > 0) {
-            $models = $this->query->eagerLoadRelations($models);
+            $models = $builder->eagerLoadRelations($models);
         }
 
         return $this->related->newCollection($models);

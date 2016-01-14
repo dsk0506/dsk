@@ -587,6 +587,8 @@ class Container implements ArrayAccess, ContainerContract
      * @param  array  $parameters
      * @param  string|null  $defaultMethod
      * @return mixed
+     *
+     * @throws \InvalidArgumentException
      */
     protected function callClass($target, array $parameters = [], $defaultMethod = null)
     {
@@ -739,7 +741,13 @@ class Container implements ArrayAccess, ContainerContract
         // an abstract type such as an Interface of Abstract Class and there is
         // no binding registered for the abstractions so we need to bail out.
         if (! $reflector->isInstantiable()) {
-            $message = "Target [$concrete] is not instantiable.";
+            if (! empty($this->buildStack)) {
+                $previous = implode(', ', $this->buildStack);
+
+                $message = "Target [$concrete] is not instantiable while building [$previous].";
+            } else {
+                $message = "Target [$concrete] is not instantiable.";
+            }
 
             throw new BindingResolutionException($message);
         }

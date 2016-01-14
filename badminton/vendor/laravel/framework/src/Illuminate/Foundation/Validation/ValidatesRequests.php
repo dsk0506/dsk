@@ -25,8 +25,6 @@ trait ValidatesRequests
      * @param  array  $messages
      * @param  array  $customAttributes
      * @return void
-     *
-     * @throws \Illuminate\Foundation\Validation\ValidationException
      */
     public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
     {
@@ -81,7 +79,7 @@ trait ValidatesRequests
      */
     protected function buildFailedValidationResponse(Request $request, array $errors)
     {
-        if ($request->ajax() || $request->wantsJson()) {
+        if (($request->ajax() && ! $request->pjax()) || $request->wantsJson()) {
             return new JsonResponse($errors, 422);
         }
 

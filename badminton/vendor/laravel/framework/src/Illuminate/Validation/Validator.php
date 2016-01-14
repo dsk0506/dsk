@@ -884,6 +884,10 @@ class Validator implements ValidatorContract
      */
     protected function validateJson($attribute, $value)
     {
+        if (! is_scalar($value) && ! method_exists($value, '__toString')) {
+            return false;
+        }
+
         json_decode($value);
 
         return json_last_error() === JSON_ERROR_NONE;
@@ -2724,6 +2728,7 @@ class Validator implements ValidatorContract
      * @param  array  $parameters
      * @param  string  $rule
      * @return void
+     *
      * @throws \InvalidArgumentException
      */
     protected function requireParameterCount($count, $parameters, $rule)
