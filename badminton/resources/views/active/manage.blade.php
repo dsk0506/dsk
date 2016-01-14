@@ -10,13 +10,11 @@
                 <div class="panel-body">
                     <div>
                         选择类型 具体配置:<br>
-                        @foreach ($active_type as $type)
-                            {{$type==1?"男单":""}}
-                            {{$type==2?"女单":""}}
-                            {{$type==3?"男双":""}}
-                            {{$type==4?"女双":""}}
-                            <a href="{{url("distribution/$active_id/$type")}}">{{$type==5?"混双循环":""}}</a>
-                        @endforeach
+
+                            <a href="{{url("distribution/$active_id/1")}}">单打循环</a>
+                            <br>
+                            <a href="{{url("distribution/$active_id/2")}}">双打循环</a>
+
                     </div>
 
 
@@ -24,13 +22,29 @@
                     报名列表:
                     <div>
                     @if (count($result))
-                        <ol>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                            <td>姓名</td>
+                            <td>报名类型</td>
+                            <td>报名时间</td>
+                            <td>联系方式</td>
+                            </tr>
+                            </thead>
                           @foreach ($result as $item)
 
-                                <li>{{$item->name}}</li>
+                                <tr>
+                                    <td>{{$item->name}}</td>
+                                    <td>
+                                        {{$item->active_type==1?"单打":''}}
+                                        {{$item->active_type==2?"双打":''}}
+                                    </td>
+                                    <td>{{$item->created_at}}</td>
+                                    <td>{{$item->phone}}</td>
+                                </tr>
 
                           @endforeach
-                        </ol>
+                        </table>
                     @else
                         还没有人报名哦
                     @endif
