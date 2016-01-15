@@ -12,7 +12,7 @@
                     <table class="table">
                     <thead>
                     <tr>
-                        <td>名次</td><td>球队</td><td>胜场</td><td>战胜的对手</td>
+                        <td>名次</td><td>球队</td><td>胜场</td><td>胜局</td><td>战胜的对手</td>
 
                      </tr>
                     </thead>
@@ -21,6 +21,7 @@
                      <tr>
                         <td>{{$k+1}}</td>
                         <td>{{$item['name']}}</td>
+                        <td>{{$item['jsc']}}</td>
                         <td>{{$item['jsj']}}</td>
                         <td>
                             <?php

@@ -215,20 +215,21 @@ class IndexController extends Controller
                 'score1'=>Input::get('score1'),
                 'score2'=>Input::get('score2'),
                 'active_type'=>Input::get('active_type'),
+                'uid'=>cookie::get('uid')
             ]
         );
-        return Redirect::to('/enter/'.Input::get('active_id')."/".Input::get('group_name')."/".Input::get('group_uid'))."/".Input::get('active_type');
+        return Redirect::to('/enter/'.Input::get('active_id')."/".Input::get('group_name')."/".Input::get('group_uid')."/".Input::get('active_type'));
 
     }
 
-    public function rank($active_id){
-        $result = DB::select("SELECT * FROM active_match_score  WHERE active_id = :active_id   ORDER BY created_at asc",array('active_id'=>$active_id));
+    public function rank($active_id,$active_type){
+        $result = DB::select("SELECT * FROM active_match_score  WHERE active_id = :active_id and active_type = :active_type   ORDER BY created_at asc",array('active_id'=>$active_id,'active_type'=>$active_type));
         $rankArr = array();
         if(empty($result)){
             return view('active.rank');
         }
         foreach($result as $v){
-            $arr = array_pop($result);
+            $arr = array_shift($result);
             $groupArr[$arr->group_name][] = $v;
 
         }
@@ -237,7 +238,10 @@ class IndexController extends Controller
                 $name = explode('~',$k);
                 $arr1[$name[0]]['name'] = $name[0];
                 $arr1[$name[1]]['name'] = $name[1];
+
                 if($v[0]->score1>$v[0]->score2){
+                    $arr1[$name[0]]['jsc'] = (empty($arr1[$name[0]]['jsc'])?0:$arr1[$name[0]]['jsc']) + 1;
+                    $arr1[$name[1]]['jsc'] = (empty($arr1[$name[1]]['jsc'])?0:$arr1[$name[1]]['jsc']) + 0;
                     $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + 1;
                     $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + 0;
                     if(empty($arr1[$name[0]]['win'])){
@@ -248,6 +252,8 @@ class IndexController extends Controller
                         }
                     }
                 }else{
+                    $arr1[$name[0]]['jsc'] = (empty($arr1[$name[0]]['jsc'])?0:$arr1[$name[0]]['jsc']) + 0;
+                    $arr1[$name[1]]['jsc'] = (empty($arr1[$name[1]]['jsc'])?0:$arr1[$name[1]]['jsc']) + 1;
                     $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + 0;
                     $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + 1;
                     if(empty($arr1[$name[1]]['win'])){
@@ -273,7 +279,9 @@ class IndexController extends Controller
                     }
                 }
                 if($score1>$score2){
-                    $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + 1;
+                    $arr1[$name[0]]['jsc'] = (empty($arr1[$name[0]]['jsc'])?0:$arr1[$name[0]]['jsc']) + 1;
+                    $arr1[$name[1]]['jsc'] = (empty($arr1[$name[1]]['jsc'])?0:$arr1[$name[1]]['jsc']) + 0;
+                    $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + $score1-$score2;
                     $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + 0;
                     if(empty($arr1[$name[0]]['win'])){
                         $arr1[$name[0]]['win'][] = $name[1];
@@ -282,9 +290,18 @@ class IndexController extends Controller
                             $arr1[$name[0]]['win'][] = $name[1];
                         }
                     }
-                }else{
+                }elseif($score1==$score2){
+                    $arr1[$name[0]]['jsc'] = (empty($arr1[$name[0]]['jsc'])?0:$arr1[$name[0]]['jsc']) + 0;
+                    $arr1[$name[1]]['jsc'] = (empty($arr1[$name[1]]['jsc'])?0:$arr1[$name[1]]['jsc']) + 0;
                     $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + 0;
-                    $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + 1;
+                    $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + 0;
+                    $arr1[$name[0]]['win'][] = "进行中";
+                    $arr1[$name[1]]['win'][] = "进行中";
+                }else{
+                    $arr1[$name[0]]['jsc'] = (empty($arr1[$name[0]]['jsc'])?0:$arr1[$name[0]]['jsc']) + 0;
+                    $arr1[$name[1]]['jsc'] = (empty($arr1[$name[1]]['jsc'])?0:$arr1[$name[1]]['jsc']) + 1;
+                    $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + 0;
+                    $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + $score2-$score1;
                     if(empty($arr1[$name[1]]['win'])){
                         $arr1[$name[1]]['win'][] = $name[0];
                     }else{
@@ -299,9 +316,9 @@ class IndexController extends Controller
 
         //先按净身场 如果净身场相同 再比较他们的胜负
         uasort($arr1,function($a,$b){
-            if($b['jsj']>$a['jsj']){
+            if($b['jsc']>$a['jsc']){
                 return 1;
-            }elseif($b['jsj']==$a['jsj']){
+            }elseif($b['jsc']==$a['jsc']){
                 if(!empty($b['win'])){
                     if(in_array($a['name'],$b['win'])){
                         return 1;
