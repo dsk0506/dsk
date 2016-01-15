@@ -23,7 +23,14 @@
                                         <td>{{$item->title}}</td>
                                         <td>{{$item->created_at}}</td>
                                         <td>{{$item->expire_time}}</td>
-                                        <td><a href="{{url("/success/$item->id")}}">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{url("/manage/$item->id")}}">管理</a></td>
+                                        <td>
+                                            <a href="{{url("/success/$item->id")}}">查看</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{url("/manage/$item->id")}}">管理</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{url("/manage/$item->id")}}">设置裁判</a>
+
+                                        </td>
                                     </tr>
                                 @endforeach
                             </table>
