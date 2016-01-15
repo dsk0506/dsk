@@ -244,6 +244,8 @@ class IndexController extends Controller
                     $arr1[$name[1]]['jsc'] = (empty($arr1[$name[1]]['jsc'])?0:$arr1[$name[1]]['jsc']) + 0;
                     $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + 1;
                     $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + 0;
+                    $arr1[$name[0]]['jsf'] = (empty($arr1[$name[0]]['jsf'])?0:$arr1[$name[0]]['jsf']) + $v[0]->score1-$v[0]->score2;
+                    $arr1[$name[1]]['jsf'] = (empty($arr1[$name[1]]['jsf'])?0:$arr1[$name[1]]['jsf']) + 0;
                     if(empty($arr1[$name[0]]['win'])){
                         $arr1[$name[0]]['win'][] = $name[1];
                     }else{
@@ -256,6 +258,8 @@ class IndexController extends Controller
                     $arr1[$name[1]]['jsc'] = (empty($arr1[$name[1]]['jsc'])?0:$arr1[$name[1]]['jsc']) + 1;
                     $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + 0;
                     $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + 1;
+                    $arr1[$name[0]]['jsf'] = (empty($arr1[$name[0]]['jsf'])?0:$arr1[$name[0]]['jsf']) + 0;
+                    $arr1[$name[1]]['jsf'] = (empty($arr1[$name[1]]['jsf'])?0:$arr1[$name[1]]['jsf']) + $v[0]->score2-$v[0]->score1;
                     if(empty($arr1[$name[1]]['win'])){
                         $arr1[$name[1]]['win'][] = $name[0];
                     }else{
@@ -271,18 +275,24 @@ class IndexController extends Controller
                 $arr1[$name[1]]['name'] = $name[1];
                 $score1 = 0;
                 $score2 = 0;
+                $jsf1 =0;
+                $jsf2 =0;
                 foreach($v as $v1){
                     if($v1->score1>$v1->score2){
                         $score1 = $score1+1;
                     }else{
                         $score2 = $score2+1;
                     }
+                    $jsf1 = $jsf1 + $v1->score1 - $v1->score2;
+                    $jsf2 = $jsf2 + $v1->score2 - $v1->score1;
                 }
                 if($score1>$score2){
                     $arr1[$name[0]]['jsc'] = (empty($arr1[$name[0]]['jsc'])?0:$arr1[$name[0]]['jsc']) + 1;
                     $arr1[$name[1]]['jsc'] = (empty($arr1[$name[1]]['jsc'])?0:$arr1[$name[1]]['jsc']) + 0;
                     $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + $score1-$score2;
                     $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + 0;
+                    $arr1[$name[0]]['jsf'] = (empty($arr1[$name[0]]['jsf'])?0:$arr1[$name[0]]['jsf']) + $jsf1;
+                    $arr1[$name[1]]['jsf'] = (empty($arr1[$name[1]]['jsf'])?0:$arr1[$name[1]]['jsf']) + 0;
                     if(empty($arr1[$name[0]]['win'])){
                         $arr1[$name[0]]['win'][] = $name[1];
                     }else{
@@ -295,6 +305,8 @@ class IndexController extends Controller
                     $arr1[$name[1]]['jsc'] = (empty($arr1[$name[1]]['jsc'])?0:$arr1[$name[1]]['jsc']) + 0;
                     $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + 0;
                     $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + 0;
+                    $arr1[$name[0]]['jsf'] = (empty($arr1[$name[0]]['jsf'])?0:$arr1[$name[0]]['jsf']) + 0;
+                    $arr1[$name[1]]['jsf'] = (empty($arr1[$name[1]]['jsf'])?0:$arr1[$name[1]]['jsf']) + 0;
                     $arr1[$name[0]]['win'][] = "进行中";
                     $arr1[$name[1]]['win'][] = "进行中";
                 }else{
@@ -302,6 +314,8 @@ class IndexController extends Controller
                     $arr1[$name[1]]['jsc'] = (empty($arr1[$name[1]]['jsc'])?0:$arr1[$name[1]]['jsc']) + 1;
                     $arr1[$name[0]]['jsj'] = (empty($arr1[$name[0]]['jsj'])?0:$arr1[$name[0]]['jsj']) + 0;
                     $arr1[$name[1]]['jsj'] = (empty($arr1[$name[1]]['jsj'])?0:$arr1[$name[1]]['jsj']) + $score2-$score1;
+                    $arr1[$name[0]]['jsf'] = (empty($arr1[$name[0]]['jsf'])?0:$arr1[$name[0]]['jsf']) + 0;
+                    $arr1[$name[1]]['jsf'] = (empty($arr1[$name[1]]['jsf'])?0:$arr1[$name[1]]['jsf']) + $jsf2;
                     if(empty($arr1[$name[1]]['win'])){
                         $arr1[$name[1]]['win'][] = $name[0];
                     }else{
