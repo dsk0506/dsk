@@ -16,9 +16,10 @@ class CreateActiveMatchScoreTable extends Migration
             $table->increments('id');
             $table->integer('active_id');
             $table->string('group_name');
-            $table->integer('group_uid');
+            $table->string('group_uid');
             $table->integer('score1');
             $table->integer('score2');
+            $table->integer('active_type');
             $table->integer('uid');//录入uid
             $table->timestamps();
         });

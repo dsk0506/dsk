@@ -32,7 +32,7 @@ class ActiveEventListener
         {
             case 2:
                 //根据配置获取参赛用户
-                $users = DB::select("SELECT * FROM active_user LEFT JOIN `user` ON `user`.id = active_user.uid WHERE active_user.active_id = :active_id",array('active_id'=>$config['active_id']));
+                $users = DB::select("SELECT * FROM active_user LEFT JOIN `user` ON `user`.id = active_user.uid WHERE active_user.active_id = :active_id and active_user.active_type = :active_type",array('active_id'=>$config['active_id'],'active_type'=>$config['active_type']));
                 $signCount = count($users);
                 $groupCount = intval($signCount/2);
                 if(empty($groupCount)){
