@@ -26,7 +26,7 @@
                                     @for ($i = 0; $i < $result['active_site']; $i++)
 
                                         <td>
-                                            <?php echo !empty($result[$j][$i][0]['groupName'])?$result[$j][$i][0]['groupName']."<br>".$result[$j][$i][1]['groupName']."<br><a href='/enter/".$active_id."/".$result[$j][$i][0]['groupName']."~".$result[$j][$i][1]['groupName']."/".$result[$j][$i][0]['groupUid'][0].":".$result[$j][$i][0]['groupUid'][1].":".$result[$j][$i][1]['groupUid'][0].":".$result[$j][$i][1]['groupUid'][1]."'>录入比赛成绩</a>":'--';?>
+                                            <?php echo !empty($result[$j][$i][0]['groupName'])?$result[$j][$i][0]['groupName']."<br>".$result[$j][$i][1]['groupName']."<br><a href='/enter/".$active_id."/".$result[$j][$i][0]['groupName']."~".$result[$j][$i][1]['groupName']."/".$result[$j][$i][0]['groupUid'][0].":".$result[$j][$i][1]['groupUid'][0]."'>录入比赛成绩</a>":'--';?>
                                         </td>
                                     @endfor
                                 </tr>
