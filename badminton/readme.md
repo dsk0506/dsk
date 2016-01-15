@@ -59,3 +59,5 @@ php artisan db:seed --class=active_user
 
 - 优化排序(先按场  再按局  再按分  再按先后时间[或默认顺序])[我在处理]
 
+- 单打 双打循环的配置
+
