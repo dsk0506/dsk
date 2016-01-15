@@ -57,14 +57,16 @@
                         <li><a href="{{ url('/login') }}">登陆</a></li>
                         <li><a href="{{ url('/register') }}">注册</a></li>
                     @else
-                        <li><a href="{{ url('/my') }}">我的赛事</a></li>
-                        <li><a href="{{ url('/send') }}">我要发布</a></li>
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Cookie::get('name') }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+
+                                <li><a href="{{ url('/my') }}"><i class="fa fa-btn fa-sign-out"></i>我的赛事</a></li>
+                                <li><a href="{{ url('/send') }}"><i class="fa fa-btn fa-sign-out"></i>发布赛事</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>安全退出</a></li>
                             </ul>
                         </li>

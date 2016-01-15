@@ -34,10 +34,11 @@ class ActiveEventListener
                 //根据配置获取参赛用户
                 $users = DB::select("SELECT * FROM active_user LEFT JOIN `user` ON `user`.id = active_user.uid WHERE active_user.active_id = :active_id",array('active_id'=>$config['active_id']));
                 $signCount = count($users);
-                $groupCount = $signCount/2;
+                $groupCount = intval($signCount/2);
                 if(empty($groupCount)){
                     return ;
                 }
+
                 for($i=0;$i<$groupCount;$i++){
                     $group[] = array(
                         'groupName'=>$users[$i*2]->name.":".$users[$i*2+1]->name,
@@ -74,10 +75,15 @@ class ActiveEventListener
                                 }
                                 $arr = array_shift($match);
                                 $uid = array_merge($arr[0]['groupUid'],$arr[1]['groupUid']);
-
                                 $uidArr = $result[$key]['uid'];
+                                $uidArr1 = array();
+                                $uidArr2 = array();
 
-                                if(array_intersect($uid,$uidArr)){
+                                if($key>1){
+                                    $uidArr1 = $result[$key-1]['uid'];
+                                    $uidArr2 = $result[$key-2]['uid'];
+                                }
+                                if(array_intersect($uid,$uidArr)||(array_intersect($uid,$uidArr1)&&array_intersect($uid,$uidArr2))){
                                     array_push($match,$arr);
                                     if($j>count($match)){
                                         break;

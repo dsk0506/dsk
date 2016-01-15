@@ -186,9 +186,8 @@ class IndexController extends Controller
     public function distribution($active_id,$active_type){
         $config=array(
             'active_id'=>$active_id,//活动id
-            'active_type'=>$active_type,//混双
-            'active_rule'=>1,//1循环 2小组淘汰
-            'active_group'=>4,//几组
+            'active_type'=>$active_type,//1双打 2单打
+            'active_rule'=>1,//1循环
             'active_site'=>3,//场地
             'active_period'=>'2016-01-05 09:00:00~2016-01-05 11:00:00|2016-01-05 13:00:00~2016-01-05 15:00:00|2016-01-06 09:00:00~2016-01-06 11:00:00',//时间段
             'active_time'=>10,//每场需要时间 单位分钟
