@@ -48,6 +48,10 @@ php artisan db:seed --class=active
 ```
 php artisan db:seed --class=active_user
 ```
+数据重来
+```
+php artisan migrate:reset
+```
 
 ###任务
 
