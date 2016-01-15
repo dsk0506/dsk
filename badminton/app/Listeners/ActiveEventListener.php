@@ -83,7 +83,7 @@ class ActiveEventListener
                                     $uidArr1 = $result[$key-1]['uid'];
                                     $uidArr2 = $result[$key-2]['uid'];
                                 }
-                                if(array_intersect($uid,$uidArr)||(array_intersect($uid,$uidArr1)&&array_intersect($uid,$uidArr2))){
+                                if(array_intersect($uid,$uidArr)||(array_intersect($arr[0]['groupUid'],$uidArr1)&&array_intersect($arr[0]['groupUid'],$uidArr2))||((array_intersect($arr[1]['groupUid'],$uidArr1)&&array_intersect($arr[1]['groupUid'],$uidArr2)))){
                                     array_push($match,$arr);
                                     if($j>count($match)){
                                         break;
@@ -159,7 +159,7 @@ class ActiveEventListener
                                     $uidArr1 = $result[$key-1]['uid'];
                                     $uidArr2 = $result[$key-2]['uid'];
                                 }
-                                if(array_intersect($uid,$uidArr)||(array_intersect($uid,$uidArr1)&&array_intersect($uid,$uidArr2))){
+                                if(array_intersect($uid,$uidArr)||(array_intersect($arr[0]['groupUid'],$uidArr1)&&array_intersect($arr[0]['groupUid'],$uidArr2))||((array_intersect($arr[1]['groupUid'],$uidArr1)&&array_intersect($arr[1]['groupUid'],$uidArr2)))){
                                     array_push($match,$arr);
                                     if($j>count($match)){
                                         break;
