@@ -13,7 +13,7 @@
                           <input type="hidden" name="group_name" value="{{$group_name}}">
                           <input type="hidden" name="group_uid" value="{{$group_uid}}">
                           <input type="hidden" name="active_id" value="{{$active_id}}">
-                          <input type="hidden" name="active_type" value="{{active_type}}">
+                          <input type="hidden" name="active_type" value="{{$active_type}}">
                           <div class="form-group">
                             <input type="number" class="form-control" name="score1" id="score1" placeholder="比分1">
                           </div>
