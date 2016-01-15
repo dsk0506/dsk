@@ -196,10 +196,10 @@ class IndexController extends Controller
         $data = Event::fire(new ActiveEvent($config));
         $result = $data[0];
         //var_dump($result);
-        return view('active.distribution',compact('result','active_id'));
+        return view('active.distribution',compact('result','active_id','active_type'));
     }
 
-    public function enter($active_id,$group_name,$group_uid){
+    public function enter($active_id,$group_name,$group_uid,$active_type){
 
         $result = DB::select("SELECT * FROM active_match_score  WHERE active_id = :active_id and group_name=:group_name and group_uid=:group_uid ORDER BY created_at asc",array('active_id'=>$active_id,'group_name'=>$group_name,"group_uid"=>$group_uid));
         return view('active.enter',compact('result','group_name','active_id','group_uid'));
