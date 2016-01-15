@@ -202,7 +202,7 @@ class IndexController extends Controller
     public function enter($active_id,$group_name,$group_uid,$active_type){
 
         $result = DB::select("SELECT * FROM active_match_score  WHERE active_id = :active_id and group_name=:group_name and group_uid=:group_uid ORDER BY created_at asc",array('active_id'=>$active_id,'group_name'=>$group_name,"group_uid"=>$group_uid));
-        return view('active.enter',compact('result','group_name','active_id','group_uid'));
+        return view('active.enter',compact('result','group_name','active_id','group_uid','active_type'));
     }
 
 
@@ -213,10 +213,11 @@ class IndexController extends Controller
                 'active_id'=>Input::get('active_id'),
                 'group_uid'=>Input::get('group_uid'),
                 'score1'=>Input::get('score1'),
-                'score2'=>Input::get('score2')
+                'score2'=>Input::get('score2'),
+                'active_type'=>Input::get('active_type'),
             ]
         );
-        return Redirect::to('/enter/'.Input::get('active_id')."/".Input::get('group_name')."/".Input::get('group_uid'));
+        return Redirect::to('/enter/'.Input::get('active_id')."/".Input::get('group_name')."/".Input::get('group_uid'))."/".Input::get('active_type');
 
     }
 
