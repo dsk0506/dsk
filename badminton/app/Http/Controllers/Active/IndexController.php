@@ -333,12 +333,15 @@ class IndexController extends Controller
             if($b['jsc']>$a['jsc']){
                 return 1;
             }elseif($b['jsc']==$a['jsc']){
-                if(!empty($b['win'])){
-                    if(in_array($a['name'],$b['win'])){
+                if($b['jsj']>$a['jsj']){
+                    return 1;
+                }elseif($b['jsj']==$a['jsj']){
+                    if($b['jsf']>$a['jsf']){
                         return 1;
+                    }elseif($b['jsf']==$a['jsf']){
+
                     }
                 }
-
             }
         });
         $arr4 = array_values($arr1);
