@@ -28,7 +28,7 @@
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <a href="{{url("/manage/$item->id")}}">管理</a>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a href="{{url("/manage/$item->id")}}">设置裁判</a>
+                                            <a href="{{url("/manage/set/$item->id")}}" target="_blank">设置裁判</a>
 
                                         </td>
                                     </tr>

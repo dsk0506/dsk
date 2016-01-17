@@ -47,4 +47,6 @@ Route::group(['middleware' =>[ 'web','auth']], function () {
     Route::get('/rank/{active_id}/{active_type}', 'Active\\IndexController@rank');
     Route::get('/upload/execute','Upload\\UploadController@execute');
     Route::get('/upload/success','Upload\\UploadController@success');
+    Route::get('/manage/set/{id}','Manage\\ManageController@set');
+    Route::post('/manage/doSet','Manage\\ManageController@doSet');
 });

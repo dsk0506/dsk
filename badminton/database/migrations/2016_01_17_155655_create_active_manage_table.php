@@ -17,7 +17,7 @@ class CreateActiveManageTable extends Migration
             $table->string('username');
             $table->string('mobile');
             $table->integer('active_id');
-            $table->integer('active_type');
+            $table->string('active_type');
             $table->timestamps();
         });
     }

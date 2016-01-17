@@ -20,7 +20,7 @@ class active_manage extends Seeder
             'username'=>'lock',
             'mobile'=>'15105661487',
             'active_id' => 1,
-            'active_type' => 2,
+            'active_type' => [2],
         ]);
     }
 }
